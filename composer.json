@@ -1,0 +1,17 @@
+{
+    "name": "quomodosoftbd/element-ready-pro-license",
+    "description": "Element Ready Pro composer package",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Element Ready",
+            "email": "quomodosoft@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"Element_Ready_Pro\\License\\": "src/"}
+    },
+    "require": {}
+}
