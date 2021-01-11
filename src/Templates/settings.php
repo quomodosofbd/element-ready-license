@@ -36,15 +36,15 @@
                                 <div class="quomodo-row">
                                     <div class="element-ready-col quomodo-col-md-6">
                                         <div class="element-ready-data">
-                                            <strong><?php echo esc_html__('License Key','element-ready-pro'); ?></strong>
-                                            <input value="" name="element_ready_pro_license_key" class="quomodo_text " id="element_ready_pro_license_key" type="text">
+                                            <strong><?php echo esc_html__('Purchase Key','element-ready-pro'); ?></strong>
+                                            <input name="element_ready_pro_license_key" class="quomodo_text " id="element_ready_pro_license_key" type="text">
                                             <label for="element_ready_pro_license_key"></label>
                                         </div>
                                     </div>
                                     <div class="element-ready-col quomodo-col-md-6">
                                         <div class="element-ready-data">
-                                            <strong><?php echo esc_html__('Welcome To Element Ready Pro','element-ready-pro'); ?></strong>
-                                           
+                                            <strong></strong>
+                                           <?php do_action('element-ready-pro/dash/connection'); ?>
                                         </div>    
                                     </div>    
                                 </div>
