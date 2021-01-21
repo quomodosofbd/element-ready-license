@@ -57,7 +57,7 @@ Class License
             return false;
         }
         
-        return \rest_ensure_response( "Hello World, this is the WordPress REST API {$l_key}" );
+        return \rest_ensure_response( "this is the REST API {$l_key}" );
     }
 }
 

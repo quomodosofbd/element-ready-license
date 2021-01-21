@@ -15,6 +15,7 @@
             </p>
          </div>
    </div>
+   
    <div class="quomodo-row">
          <div class="element-ready-col quomodo-col-md-6"> 
             <p>
