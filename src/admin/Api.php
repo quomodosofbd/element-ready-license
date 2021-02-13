@@ -7,8 +7,8 @@ class Api {
 
     const PRODUCT_NAME = 'Element Ready Pro';
 
-	const STORE_URL = 'http://plugins.quomodosoft.com/element-ready/wp-json/rest/v3/license';
-	const RENEW_URL = 'http://plugins.quomodosoft.com/element-ready';
+	const STORE_URL = 'https://elementsready.com/wp-json/rest/v3/license';
+	const RENEW_URL = 'https://elementsready.com';
 
 	// License Statuses
 	const STATUS_VALID         = 'valid';
@@ -87,12 +87,41 @@ class Api {
 	public static function set_license_data( $license_data, $expiration = null ) {
 
 		if ( null === $expiration ) {
-			
 			$expiration = 12 * HOUR_IN_SECONDS;
 		}
 		//remove below line in production
 		$expiration = 1 * MINUTE_IN_SECONDS;
 		set_transient( 'element_ready_pro_license_data', $license_data, $expiration );
+    }
+
+	public static function set_connect_data( $data ) {
+
+        $service  = [];
+		if(isset($data['code'])){
+		  $service['code'] = $data['code'];	
+		}else{
+			$service['code'] = 201;
+		}
+
+		if(isset($data['msg'])){
+			$service['msg'] = $data['msg'];	
+		  }else{
+			  $service['msg'] = 'Invalid';
+		  }
+		  
+		  if(isset($data['license'])){
+			$service['license'] = $data['license'];	
+		  }else{
+			  $service['license'] = 'Invalid';
+		  }
+
+		  if(isset($data['domain'])){
+			$service['domain'] = $data['domain'];	
+		  }else{
+			  $service['domain'] = 'localhost';
+		  }
+
+     	update_option( 'element_ready_pro_connect_data', $service );
     }
     
     public static function get_license_data( $force_request = false ) {

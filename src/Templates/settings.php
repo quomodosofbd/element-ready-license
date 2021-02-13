@@ -7,11 +7,10 @@
                 <a href="http://quomodosoft.com/"><img src="<?php echo esc_url(ELEMENT_READY_ROOT_IMG.'logo.jpg'); ?>" alt="<?php echo esc_attr__('logo','element-ready'); ?>"></a>
             </div>
             <ul>
-                <li class="element-ready-dashboard element-ready-header-footer">
+                <li class="element-ready-dashboard element-ready-pro-licesne">
                     <a href="#element-ready-adpage-tabs-1">
                         <i class="dashicons dashicons-admin-home"></i>
-                        <h3 class="element-ready-title"><?php echo esc_html__('License','element-ready'); ?> </h3>
-                      
+                        <h3 class="element-ready-title pro-license-title"><?php echo esc_html__('License','element-ready-pro'); ?> </h3>
                     </a>
                 </li>
                
@@ -37,7 +36,7 @@
                                     <div class="element-ready-col quomodo-col-md-6">
                                         <div class="element-ready-data">
                                             <strong><?php echo esc_html__('Purchase Key','element-ready-pro'); ?></strong>
-                                            <input name="element_ready_pro_license_key" class="quomodo_text " id="element_ready_pro_license_key" type="text">
+                                            <input name="element_ready_pro_license_key" class="quomodo_text " id="element_ready_pro_license_key" type="text" value="<?php echo get_option( 'element_ready_pro_license_key' ) ?>">
                                             <label for="element_ready_pro_license_key"></label>
                                         </div>
                                     </div>

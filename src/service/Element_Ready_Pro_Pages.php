@@ -1,10 +1,11 @@
 <?php 
 namespace Element_Ready_Pro\License\service;
-
+use Element_Ready_Pro\License\admin\Admin;
+use \Element_Ready_Pro\Base\Traits\Helper;
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 Class Element_Ready_Pro_Pages {
-
+    use Helper;
     public function add_page(){
        
         add_action( 'admin_enqueue_scripts', [$this,'add_admin_scripts'] );
@@ -16,12 +17,17 @@ Class Element_Ready_Pro_Pages {
        $this->components_options();
     }
     public function add_admin_scripts($handle){
-           
-        
-        if($handle == 'element-ready_page_element-element-ready-pro-license'){
+       
+        if($handle == 'element-ready_page_element-ready-pro-license'){
           
            wp_enqueue_style( 'element-ready-grid', ELEMENT_READY_ROOT_CSS .'grid.css' );
            wp_enqueue_style( 'element-ready-admin', ELEMENT_READY_ROOT_CSS .'admin.css' );
+           wp_enqueue_script( 'element-ready-admin', ELEMENT_READY_ROOT_JS .'admin.js' ,array('jquery','jquery-ui-tabs'), ELEMENT_READY_PRO_VERSION, true );
+            wp_localize_script( 'element-ready-admin', 'element_ready_obj', [
+                'active' => isset($_GET['tabs'])?$_GET['tabs']:0,
+                'rest_url' => get_rest_url(),
+                'user_id' => get_current_user_id(),
+            ]);
         }
       
    }
@@ -35,22 +41,23 @@ Class Element_Ready_Pro_Pages {
     }
 
     public function components_options(){
-     
+
+        $ad = new Admin();
         if ( !isset($_POST['_element_ready_pro_ls_components']) || !wp_verify_nonce($_POST['_element_ready_pro_ls_components'], 'element-ready-pro-ls-components')) {
             wp_redirect($_SERVER["HTTP_REFERER"]);
         }
   
-        if( !isset($_POST['element_ready_pro_license_key']) ){
+        if( !isset( $_POST['element_ready_pro_license_key'] ) ){
             wp_redirect($_SERVER["HTTP_REFERER"]); 
         }
-       
-        // Save
+       // Save
         update_option('element_ready_pro_license_key',$_POST['element_ready_pro_license_key']);
-        
+        $ad->action_activate_license();
         if ( wp_doing_ajax() )
         {
           wp_die();
         }else{
+           
             wp_redirect($_SERVER["HTTP_REFERER"]);
         }  
     }
@@ -62,6 +69,8 @@ Class Element_Ready_Pro_Pages {
 
     public function element_ready_pro_status(){
 
-        return 'inactive';
+        if(!$this->get_sw()){return 'Inactive';}
+
+        return 'Active';
     }
 }

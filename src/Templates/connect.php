@@ -24,7 +24,7 @@
           </div>
          <div class="element-ready-col quomodo-col-md-6 right">
             <p>
-                <a href="<?php echo esc_url( ELEMENT_READY_DEMO_URL .'account'); ?>" class="button secondary">
+                <a href="javascript:void(0)" class="button secondary element-ready-pro-connects">
                     <?php echo esc_html__( 'Activate', 'element-ready-pro' ) ?>
                 </a>
             </p>
@@ -38,7 +38,7 @@
           </div>
          <div class="element-ready-col quomodo-col-md-6 right">
             <p>
-                <a href="<?php echo esc_url( ELEMENT_READY_DEMO_URL .'account'); ?>" class="button danger">
+                <a href="javascript:void(0)" class="button danger element-ready-pro-disconnects">
                     <?php echo esc_html__( 'Deactivate', 'element-ready-pro' ) ?>
                 </a>
             </p>

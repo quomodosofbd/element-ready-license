@@ -8,9 +8,9 @@ abstract class Base {
 
 	const OPTION_NAME_PREFIX = 'element_ready_connect_';
 
-	const SITE_URL = 'http://plugins.quomodosoft.com/element-ready';
+	const SITE_URL = 'https://elementsready.com';
 
-    const API_URL = 'http://plugins.quomodosoft.com/element-ready/wp-json/element-ready-pro/v1';
+    const API_URL = 'https://elementsready.com/wp-json/element-ready-pro/v1';
 
     protected $data = [];
 
@@ -50,6 +50,7 @@ abstract class Base {
 	 * @access protected
 	 */
 	protected function get_site_key() {
+
 		$site_key = get_option( 'element_ready_connect_site_key' );
 
 		if ( ! $site_key ) {

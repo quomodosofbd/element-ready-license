@@ -9,7 +9,7 @@ class Connect extends Base {
     }
     protected function init() {
 		
-		//add_action( 'admin_init', [ $this, 'register_actions' ] );
+		add_filter( 'element_ready_pro_extend_modules', [$this,'modules'] , 10);
 		
     }
 
@@ -33,5 +33,11 @@ class Connect extends Base {
     
     protected function get_slug() {
 		return 'element-ready-pro-connect';
+    }
+
+	public function modules($data){
+        
+        error_log(json_encode($data));
+        return $data;
     }
 }

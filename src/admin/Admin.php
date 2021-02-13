@@ -12,14 +12,20 @@ class Admin {
 	}
 
 	public static function set_license_key( $license_key ) {
-		return update_option( 'element_rady_pro_license_key', $license_key );
+		return update_option( 'element_ready_pro_license_key', $license_key );
     }
     
     public static function deactivate() {
-
-		API::deactivate_license();
-		delete_option( 'element_ready_pro_license_key' );
+         
+		$status = false;
+		if(get_option('element_ready_pro_connect_data')){
+			$status  = true;
+		}
+		delete_option( 'element_ready_pro_connect_data' );
 		delete_transient( 'element_ready_pro_license_data' );
+
+		return true;
+
     }
 
     public static function get_url() {
@@ -27,6 +33,7 @@ class Admin {
     }
     
     public static function get_errors_details() {
+
 		$license_page_link = self::get_url();
 
 		return [
@@ -59,47 +66,42 @@ class Admin {
 
     public function action_activate_license() {
 
-         
-		if ( empty( $_POST['elementor_pro_license_key'] ) ) {
-
-		 	throw new Exception( esc_html__( 'Please enter your license key.', 'element-ready-pro' ), esc_html__( 'Element Ready Pro', 'element-ready-pro' ), [
-				'back_link' => true,
-			] );
-		}
-
-		$license_key = trim( $_POST['element_ready_pro_license_key'] );
-
+        
+		$license_key = get_option('element_ready_pro_license_key');
+	
 		$data = API::activate_license( $license_key );
-
+        
 		if ( is_wp_error( $data ) ) {
-
-			wp_die( sprintf( '%s (%s) ', $data->get_error_message(), $data->get_error_code() ), esc_html__( 'Elementor Ready Pro', 'element-ready-pro' ), [
-				'back_link' => true,
-            ] );
+            $data = [];
+			$data['license'] = 'invalid';
+			$data['msg'] = 'You have provided invalid license';
+			$data['code'] = 403;
+			$data['domain'] = $_SERVER['HTTP_HOST'];
             
 		}
 
 		if ( API::STATUS_VALID !== $data['license'] ) {
-			$error_msg = API::get_error_message( $data['error'] );
-			wp_die( $error_msg, esc_html__( 'Elementor Ready Pro', 'element-ready-pro' ), [
-				'back_link' => true,
-			] );
+			$error_msg = API::get_error_message( $data['msg'] );
 		}
 
 		self::set_license_key( $license_key );
 		API::set_license_data( $data );
-
-		wp_safe_redirect( $_POST['_wp_http_referer'] );
-		wp_die();
+        API::set_connect_data( $data );
+		//wp_safe_redirect( $_POST['_wp_http_referer'] );
+		 return $data;
     }
 
     public function action_deactivate_license() {
 
-		check_admin_referer( 'element-ready-pro-license' );
+		if( $this->deactivate() ){
 
-		$this->deactivate();
+          wp_send_json_success( ['code' => 200,'msg' => 'deactivated'], 200 );
+		  wp_die();
 
-		wp_safe_redirect( $_POST['_wp_http_referer'] );
+		}
+
+		wp_send_json_success( ['code' => 403,'msg' => 'deactivated'], 200 );
 		wp_die();
+		
 	}
 }
