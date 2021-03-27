@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 Class Element_Ready_Pro_Pages {
     use Helper;
+    public $page = 'page_element-ready-pro-license';
     public function add_page(){
        
         add_action( 'admin_enqueue_scripts', [$this,'add_admin_scripts'] );
@@ -18,11 +19,11 @@ Class Element_Ready_Pro_Pages {
     }
     public function add_admin_scripts($handle){
        
-        if($handle == 'element-ready_page_element-ready-pro-license'){
+        if( $handle == 'element-ready_'.$this->page){
           
            wp_enqueue_style( 'element-ready-grid', ELEMENT_READY_ROOT_CSS .'grid.css' );
            wp_enqueue_style( 'element-ready-admin', ELEMENT_READY_ROOT_CSS .'admin.css' );
-           wp_enqueue_script( 'element-ready-admin', ELEMENT_READY_ROOT_JS .'admin.js' ,array('jquery','jquery-ui-tabs'), ELEMENT_READY_PRO_VERSION, true );
+           wp_enqueue_script( 'element-ready-admin', ELEMENT_READY_ROOT_JS .'admin'.ELEMENT_SCRIPT_VAR.'js' ,array('jquery','jquery-ui-tabs'), ELEMENT_READY_PRO_VERSION, true );
             wp_localize_script( 'element-ready-admin', 'element_ready_obj', [
                 'active' => isset($_GET['tabs'])?$_GET['tabs']:0,
                 'rest_url' => get_rest_url(),
@@ -69,8 +70,8 @@ Class Element_Ready_Pro_Pages {
 
     public function element_ready_pro_status(){
 
-        if(!$this->get_sw()){return 'Inactive';}
+        if(!$this->get_sw()){return esc_html__('Inactive','element-ready-pro');}
 
-        return 'Active';
+        return esc_html__('Active','element-ready-pro');
     }
 }

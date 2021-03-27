@@ -4,7 +4,7 @@
 
         <div class="element-ready-nav-wrapper">
             <div class="element-ready-logo">
-                <a href="http://quomodosoft.com/"><img src="<?php echo esc_url(ELEMENT_READY_ROOT_IMG.'logo.jpg'); ?>" alt="<?php echo esc_attr__('logo','element-ready'); ?>"></a>
+                <a href="http://elementsready.com"><img src="<?php echo esc_url(ELEMENT_READY_ROOT_IMG.'logo.jpg'); ?>" alt="<?php echo esc_attr__('logo','element-ready'); ?>"></a>
             </div>
             <ul>
                 <li class="element-ready-dashboard element-ready-pro-licesne">

@@ -76,7 +76,7 @@ class Admin {
 			$data['license'] = 'invalid';
 			$data['msg'] = 'You have provided invalid license';
 			$data['code'] = 403;
-			$data['domain'] = $_SERVER['HTTP_HOST'];
+			
             
 		}
 

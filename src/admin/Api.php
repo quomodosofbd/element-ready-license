@@ -3,7 +3,7 @@ namespace Element_Ready_Pro\License\admin;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class Api {
+class API {
 
     const PRODUCT_NAME = 'Element Ready Pro';
 
@@ -115,11 +115,7 @@ class Api {
 			  $service['license'] = 'Invalid';
 		  }
 
-		  if(isset($data['domain'])){
-			$service['domain'] = $data['domain'];	
-		  }else{
-			  $service['domain'] = 'localhost';
-		  }
+		  $service['domain'] = $_SERVER['HTTP_HOST'];
 
      	update_option( 'element_ready_pro_connect_data', $service );
     }
